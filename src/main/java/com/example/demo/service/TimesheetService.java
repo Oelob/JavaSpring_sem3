@@ -1,22 +1,17 @@
 package com.example.demo.service;
 
-import com.example.demo.models.Project;
 import com.example.demo.models.Timesheet;
-import com.example.demo.repository.ProjectRepository;
 import com.example.demo.repository.Timesheetrepository;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 @Service
 public class TimesheetService {
 
     private final Timesheetrepository timesheetrepository;
-
 
     public TimesheetService(Timesheetrepository timesheetrepository) {
         this.timesheetrepository = timesheetrepository;
@@ -30,7 +25,6 @@ public class TimesheetService {
         return timesheetrepository.getAll();
     }
 
-
     public Optional<Timesheet> create(Timesheet timesheet){
         timesheet.setCreateAt(LocalDate.now());
         return timesheetrepository.create(timesheet);
@@ -40,8 +34,8 @@ public class TimesheetService {
         timesheetrepository.delete(id);
     }
 
-    public List<Timesheet> timesheetsByProjectId(Long projectId){
-        return timesheetrepository.timesheetsByProjectId(projectId);
+    public List<Timesheet> timesheetsByProjectName(String name){
+        return timesheetrepository.timesheetsByProjectName(name);
     }
 
     public List<Timesheet> timesheetsCreatedArter (LocalDate createAtAfter){
@@ -51,6 +45,4 @@ public class TimesheetService {
     public List<Timesheet> timesheetsCreatedBefore (LocalDate createAtBefore){
         return timesheetrepository.timesheetsCreatedBefore(createAtBefore);
     }
-
-
 }

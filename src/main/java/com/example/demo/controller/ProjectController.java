@@ -25,8 +25,8 @@ public class ProjectController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Project> get (@PathVariable Long id){
-        Optional<Project> ts = projectService.get(id);
+    public ResponseEntity<Project> getById (@PathVariable Long id){
+        Optional<Project> ts = projectService.getById(id);
         if (ts.isPresent()){
             return ResponseEntity.status(HttpStatus.OK).body(ts.get());
         }

@@ -1,12 +1,9 @@
 package com.example.demo.service;
 
 import com.example.demo.models.Project;
-import com.example.demo.models.Timesheet;
 import com.example.demo.repository.ProjectRepository;
-import com.example.demo.repository.Timesheetrepository;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,9 +16,14 @@ public class ProjectService {
         this.projectRepository = projectRepository;
     }
 
-    public Optional<Project> get (Long id){
-      return projectRepository.get(id);
+    public Optional<Project> getById (Long id){
+      return projectRepository.getById(id);
     }
+
+    public Optional<Project> getByName (String name){
+      return projectRepository.getByName(name);
+    }
+
 
     public List<Project> getAll (){
         return projectRepository.getAll();

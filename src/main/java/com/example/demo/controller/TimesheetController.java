@@ -2,23 +2,17 @@ package com.example.demo.controller;
 
 import com.example.demo.models.Timesheet;
 import com.example.demo.service.TimesheetService;
-import jakarta.websocket.server.PathParam;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 @RestController
 //@RequestMapping("/timesheets")
 public class TimesheetController {
-
-//    private static Long sequence = 1l;
-//    private final List<Timesheet> timesheets = new ArrayList<>();
 
     private final TimesheetService timesheetService;
 
@@ -54,9 +48,9 @@ public class TimesheetController {
         return ResponseEntity.notFound().build();
     }
 
-    @GetMapping("/projects/{id}/timesheets")
-    public ResponseEntity<List<Timesheet>> timesheetsByProjectId(@PathVariable Long id){
-        return ResponseEntity.ok(timesheetService.timesheetsByProjectId(id));
+    @GetMapping("/projects/{name}/timesheets")
+    public ResponseEntity<List<Timesheet>> timesheetsByProjectName(@PathVariable String name){
+        return ResponseEntity.ok(timesheetService.timesheetsByProjectName(name));
     }
 
     @GetMapping("/timesheets?createdAtAfter")
@@ -68,6 +62,4 @@ public class TimesheetController {
     public ResponseEntity<List<Timesheet>> timesheetsCreatedBefore (@RequestParam LocalDate createAtBefore){
         return ResponseEntity.ok(timesheetService.timesheetsCreatedArter(createAtBefore));
     }
-
-
 }

@@ -1,7 +1,6 @@
 package com.example.demo.repository;
 
 import com.example.demo.models.Project;
-import com.example.demo.models.Timesheet;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -15,11 +14,18 @@ public class ProjectRepository {
     protected static final List<Project> projects = new ArrayList<>();
 
 
-    public Optional<Project> get (Long id){
+    public Optional<Project> getById(Long id){
         return projects.stream()
                 .filter(it -> Objects.equals(it.getId(), id))
                 .findFirst();
     }
+
+    public Optional<Project> getByName(String name){
+        return projects.stream()
+                .filter(it -> Objects.equals(it.getName(), name))
+                .findFirst();
+    }
+
 
     public List<Project> getAll (){
         return List.copyOf(projects);

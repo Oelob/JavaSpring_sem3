@@ -2,6 +2,7 @@ package com.example.demo.repository;
 
 import com.example.demo.models.Project;
 import com.example.demo.models.Timesheet;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
@@ -10,6 +11,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+//@RequiredArgsConstructor
 @Repository
 public class Timesheetrepository {
     private static Long sequence = 1l;
@@ -30,12 +32,12 @@ public class Timesheetrepository {
 
     public Optional<Timesheet> create(Timesheet timesheet) {
         if (ProjectRepository.projects.stream()
-                .anyMatch(project -> project.getId().equals(timesheet.getProjectId()))) {
+                .anyMatch(project -> project.getName().equals(timesheet.getProjectName()))) {
             timesheet.setId(sequence++);
             timesheets.add(timesheet);
             return Optional.of(timesheet);
         }
-        return Optional.empty();
+        return Optional.of(timesheet);
     }
 
     public void delete (Long id){
@@ -45,9 +47,9 @@ public class Timesheetrepository {
                 .ifPresent(timesheets::remove);
     }
 
-    public List<Timesheet> timesheetsByProjectId(Long projectId){
+    public List<Timesheet> timesheetsByProjectName(String name){
         return timesheets.stream()
-                .filter(it -> it.getProjectId().equals(projectId)).toList();
+                .filter(it -> it.getProjectName().equals(name)).toList();
     }
 
     public List<Timesheet> timesheetsCreatedArter (LocalDate createAtAfter){
