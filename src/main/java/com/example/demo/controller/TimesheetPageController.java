@@ -1,6 +1,9 @@
 package com.example.demo.controller;
 
+import com.example.demo.models.Project;
 import com.example.demo.models.Timesheet;
+import com.example.demo.service.ProjectService;
+import com.example.demo.service.TimesheetPageService;
 import com.example.demo.service.TimesheetService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -17,19 +20,16 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class TimesheetPageController {
 
-    private final TimesheetService timesheetService;
+    private final TimesheetPageService timesheetPageService;
 
     @GetMapping("/{id}")
     public String getTimesheetPage(@PathVariable  Long id, Model model){
-        Optional<Timesheet> timesheetOpt = timesheetService.get(id);
-        if (timesheetOpt.isEmpty()){
-            //FIXME вернуть страницу
+        Optional<TimesheetPageDto> timesheetPageDtoOpt = timesheetPageService.getById(id);
+        if (timesheetPageDtoOpt.isEmpty()){
+            // FIXME return not-found.html
             throw new NoSuchElementException();
         }
-        Timesheet timesheet = timesheetOpt.get();
-        model.addAttribute("timesheetId", timesheet.getId());
-        model.addAttribute("timesheetMinutes", timesheet.getMinutes());
-        model.addAttribute("timesheetCreateAt", timesheet.getCreateAt());
+        model.addAttribute("timesheet", timesheetPageDtoOpt.get());
         return "timesheet-page.html";
     }
 }

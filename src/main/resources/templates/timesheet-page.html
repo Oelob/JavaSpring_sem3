@@ -5,7 +5,10 @@
     <title>Home / Timesheet</title>
 </head>
 <body>
-<h1>Timesheet page <span th:text="${timesheetId}"></span></h1>
-Debug
+<h1>Запись рабочего времени# <span th:text="${timesheet.id}"></span></h1>
+Проект: <span th:text="${timesheet.projectName}"></span> <br>
+Времени порачено: <span th:text="${timesheet.minutes}"></span> <br>
+Дата создания: <span th:text="${timesheet.createAt}"></span> <br>
+
 </body>
 </html>
