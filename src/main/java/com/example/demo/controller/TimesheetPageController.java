@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -31,5 +32,12 @@ public class TimesheetPageController {
         }
         model.addAttribute("timesheet", timesheetPageDtoOpt.get());
         return "timesheet-page.html";
+    }
+
+    @GetMapping
+    public String getAllTimesheets(Model model){
+        List<TimesheetPageDto> timesheets = timesheetPageService.findAll();
+        model.addAttribute("timesheets", timesheets);
+        return "timesheets-page.html";
     }
 }

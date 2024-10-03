@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home / TimesheetsAll</title>
+</head>
+<body>
+<h1>Записи учета свободного времени</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Идентификатор записи</th>
+        <th>Проект</th>
+        <th>Минут потрачено</th>
+        <th>Дата запси</th>
+        <th>Перейти к запси</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="timesheet : ${timesheets}">
+        <td><span th:text="${timesheet.id}"></span></td>
+        <td><span th:text="${timesheet.projectName}"> </span></td>
+        <td><span th:text="${timesheet.minutes}"> </span></td>
+        <td><span th:text="${timesheet.createAt}"> </span></td>
+        <td><a th:href="@{'/home/timesheets/{id}'(id=${timesheet.id})}">Перейти к записи</a></td>
+    </tr>
+    </tbody>
+</table>
+
+<!--<h1>Запись рабочего времени# <span th:text="${timesheet.id}"></span></h1>-->
+<!--Проект: <span th:text="${timesheet.projectName}"></span> <br>-->
+<!--Времени порачено: <span th:text="${timesheet.minutes}"></span> <br>-->
+<!--Дата создания: <span th:text="${timesheet.createAt}"></span> <br>-->
+
+</body>
+</html>

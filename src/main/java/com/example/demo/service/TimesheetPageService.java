@@ -6,6 +6,7 @@ import com.example.demo.models.Timesheet;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -16,12 +17,12 @@ public class TimesheetPageService {
     private final TimesheetService timesheetService;
     private final ProjectService projectService;
     public Optional<TimesheetPageDto> getById(Long id){
-        Optional<Timesheet> timesheetOpt = timesheetService.get(id);
-        if (timesheetOpt.isEmpty()){
-           return Optional.empty();
-        }
-        Timesheet timesheet = timesheetOpt.get();
+        return timesheetService.get(id)
+                .map(this::convert);
 
+    }
+
+    private TimesheetPageDto convert(Timesheet timesheet){
         Project project = projectService.getByName(timesheet.getProjectName())
                 .orElseThrow();
 
@@ -31,7 +32,12 @@ public class TimesheetPageService {
         timesheetPageDto.setMinutes(String.valueOf(timesheet.getMinutes()));
         timesheetPageDto.setCreateAt(String.valueOf(timesheet.getCreateAt()));
 
-        return Optional.of(timesheetPageDto);
+        return timesheetPageDto;
+    }
+    public List<TimesheetPageDto> findAll(){
+        return timesheetService.getAll().stream()
+                .map(this::convert)
+                .toList();
     }
 
 }
