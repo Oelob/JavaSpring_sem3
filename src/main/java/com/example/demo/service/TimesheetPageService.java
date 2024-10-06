@@ -31,6 +31,7 @@ public class TimesheetPageService {
         timesheetPageDto.setId(String.valueOf(timesheet.getId()));
         timesheetPageDto.setMinutes(String.valueOf(timesheet.getMinutes()));
         timesheetPageDto.setCreateAt(String.valueOf(timesheet.getCreateAt()));
+        timesheetPageDto.setProjectId(String.valueOf(project.getId()));
 
         return timesheetPageDto;
     }
