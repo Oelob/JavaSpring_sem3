@@ -53,13 +53,18 @@ public class TimesheetController {
         return ResponseEntity.ok(timesheetService.timesheetsByProjectName(name));
     }
 
-    @GetMapping("/timesheets?createdAtAfter")
-    public ResponseEntity<List<Timesheet>> timesheetsCreatedArter (@RequestParam LocalDate createAtAfter){
-        return ResponseEntity.ok(timesheetService.timesheetsCreatedArter(createAtAfter));
+    @GetMapping("/employees/{id}/timesheets")
+    public ResponseEntity<List<Timesheet>> timesheetsByEmployeeId (@PathVariable Long id){
+        return ResponseEntity.ok(timesheetService.findByEmployeeId(id));
     }
-
-    @GetMapping("/timesheets?createdAtBefore")
-    public ResponseEntity<List<Timesheet>> timesheetsCreatedBefore (@RequestParam LocalDate createAtBefore){
-        return ResponseEntity.ok(timesheetService.timesheetsCreatedArter(createAtBefore));
-    }
+//
+//    @GetMapping("/timesheets?createdAtAfter")
+//    public ResponseEntity<List<Timesheet>> timesheetsCreatedArter (@RequestParam LocalDate createAtAfter){
+//        return ResponseEntity.ok(timesheetService.timesheetsCreatedArter(createAtAfter));
+//    }
+//
+//    @GetMapping("/timesheets?createdAtBefore")
+//    public ResponseEntity<List<Timesheet>> timesheetsCreatedBefore (@RequestParam LocalDate createAtBefore){
+//        return ResponseEntity.ok(timesheetService.timesheetsCreatedArter(createAtBefore));
+//    }
 }

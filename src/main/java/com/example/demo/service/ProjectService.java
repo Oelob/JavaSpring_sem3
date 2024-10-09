@@ -17,25 +17,25 @@ public class ProjectService {
     }
 
     public Optional<Project> getById (Long id){
-      return projectRepository.getById(id);
+      return projectRepository.findById(id);
     }
 
     public Optional<Project> getByName (String name){
-      return projectRepository.getByName(name);
+      return projectRepository.findByNameLike(name);
     }
 
 
     public List<Project> getAll (){
-        return projectRepository.getAll();
+        return projectRepository.findAll();
     }
 
 
     public Project create(Project project){
-        return projectRepository.create(project);
+        return projectRepository.save(project);
     }
 
 
     public void delete (Long id) {
-        projectRepository.delete(id);
+        projectRepository.deleteById(id);
     }
 }

@@ -1,7 +1,8 @@
 package com.example.demo.service;
 
 import com.example.demo.models.Timesheet;
-import com.example.demo.repository.Timesheetrepository;
+import com.example.demo.repository.EmployeeRepository;
+import com.example.demo.repository.TimesheetRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -11,38 +12,45 @@ import java.util.Optional;
 @Service
 public class TimesheetService {
 
-    private final Timesheetrepository timesheetrepository;
+    private final TimesheetRepository timesheetrepository;
+    private final EmployeeRepository employeeRepository;
 
-    public TimesheetService(Timesheetrepository timesheetrepository) {
+    public TimesheetService(TimesheetRepository timesheetrepository, EmployeeRepository employeeRepository) {
         this.timesheetrepository = timesheetrepository;
+        this.employeeRepository = employeeRepository;
     }
 
     public Optional<Timesheet> get (Long id){
-      return timesheetrepository.get(id);
+      return timesheetrepository.findById(id);
     }
 
     public List<Timesheet> getAll (){
-        return timesheetrepository.getAll();
+//        throw new UnsupportedOperationException();
+        return timesheetrepository.findAll();
     }
 
     public Optional<Timesheet> create(Timesheet timesheet){
         timesheet.setCreateAt(LocalDate.now());
-        return timesheetrepository.create(timesheet);
+        return Optional.of(timesheetrepository.save(timesheet));
     }
 
     public void delete (Long id) {
-        timesheetrepository.delete(id);
+        timesheetrepository.deleteById(id);
     }
 
     public List<Timesheet> timesheetsByProjectName(String name){
-        return timesheetrepository.timesheetsByProjectName(name);
+        return timesheetrepository.findByProjectName(name);
     }
 
-    public List<Timesheet> timesheetsCreatedArter (LocalDate createAtAfter){
-        return timesheetrepository.timesheetsCreatedArter(createAtAfter);
+    public List<Timesheet> findByEmployeeId (Long employeeId){
+        return timesheetrepository.findByEmployeeId(employeeId);
     }
-
-    public List<Timesheet> timesheetsCreatedBefore (LocalDate createAtBefore){
-        return timesheetrepository.timesheetsCreatedBefore(createAtBefore);
-    }
+//
+//    public List<Timesheet> timesheetsCreatedArter (LocalDate createAtAfter){
+//        return timesheetrepository.timesheetsCreatedArter(createAtAfter);
+//    }
+//
+//    public List<Timesheet> timesheetsCreatedBefore (LocalDate createAtBefore){
+//        return timesheetrepository.timesheetsCreatedBefore(createAtBefore);
+//    }
 }
